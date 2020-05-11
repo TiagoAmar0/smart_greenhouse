@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Model\Sensor;
 
 class SensorsRequest extends FormRequest
 {
@@ -21,8 +22,10 @@ class SensorsRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules(){
+
+
+        $sensor = Sensor::whereId($this->id);
         $rules = [
             'name' => 'required|unique:sensors|max:191',
             'image' => 'required|image|max:2048',
@@ -30,7 +33,10 @@ class SensorsRequest extends FormRequest
         ];
 
         if ($this->getMethod() == 'PATCH') {
+            $id= \Route::input('sensor');
+
             $rules['image'] = '';
+            $rules['name'] = 'required|unique:sensors,name,'.$id.'|max:191';
             $rules['image_value'] = 'required';
         }
 
