@@ -24,7 +24,7 @@ class SensorsRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => 'required|max:191',
+            'name' => 'required|unique:sensors|max:191',
             'image' => 'required|image|max:2048',
             'metric' => 'required|max:10'
         ];
@@ -46,6 +46,7 @@ class SensorsRequest extends FormRequest
     {
        return [
            'name.required' => 'Tem de preencher o nome do sensor',
+           'name.unique' => 'O nome do sensor deve ser único',
            'name.max' => 'O nome sensor apenas pode ter no máximo 191 caracteres',
            'image.required' => 'Tem de preencher a imagem do sensor',
            'metric.required' => 'Tem de preencher a unidade do sensor',

@@ -15,7 +15,7 @@ class CreateSensorsTable extends Migration
     {
         Schema::create('sensors', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('image');
             $table->float('value')->default(0);
             $table->string('metric', 10);

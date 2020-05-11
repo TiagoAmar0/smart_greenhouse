@@ -1,11 +1,11 @@
-<div class="card bg-dark text-white text-center">
-    <div class="card-header">
-        {{ $name }} - {{ $value }} {{ $metric }}
+<div class="card text-center">
+    <div class="card-header bg-dark text-white ">
+        {{ $name }}: {{ $value }} {{ $metric }}
     </div>
     <div class="card-body">
-        <img src="{{ $image }}" alt="{{ $name }}" style="width: 100%">
+        <img src="{{ $image }}" alt="{{ $name }}" style="width: auto; height: 200px">
     </div>
-    <div class="card-footer text-muted">
+    <div class="card-footer bg-dark text-white ">
         Atualizado em: {{ $updatedAt }} - Histórico
     </div>
 </div>

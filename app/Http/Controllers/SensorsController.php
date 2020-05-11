@@ -87,7 +87,6 @@ class SensorsController extends Controller
         // Try to get the image from file input
         $image = $request->file('image');
 
-
         if(!$image){
             // If image input was not set, assings the value of the previous image path
             $path = $request->image_value;
@@ -96,7 +95,7 @@ class SensorsController extends Controller
             $path = $this->uploadImage($image, $request->name);
 
             // Delete the previous image
-            Storage::disk('public')->delete($request->image_value);
+            Storage::disk('public')->delete(str_replace('/uploads/', '', $request->image_value));
         }
 
         // Changes the data to later store only the image path and unset array element that contained the previous image url
@@ -121,7 +120,7 @@ class SensorsController extends Controller
         $sensor = Sensor::findOrFail($id);
 
         //Deletes the image linked to sensor of upload folder
-        Storage::disk('public')->delete($sensor->image_value);
+        Storage::disk('public')->delete(str_replace('/uploads/', '', $sensor->image));
 
         // Deletes the record from the database
         $sensor->delete();

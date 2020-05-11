@@ -67,6 +67,9 @@
                                 </div>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/dashboard/sensors') }}">Sensores</a>
                             </li>
                         @endguest
