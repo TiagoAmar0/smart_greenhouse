@@ -4,11 +4,11 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sensor extends Model
+class Thing extends Model
 {
-    protected $table = 'sensors';
+    protected $table = 'things';
 
-    protected $fillable = ['equipment_id', 'metric'];
+    protected $fillable = ['equipment_id'];
 
     public function equipment()
     {

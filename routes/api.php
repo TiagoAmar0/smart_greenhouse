@@ -18,6 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('sensors', 'SensorsApiController@updateSensorValue');
+Route::post('sensors', 'Api\EquipmentsApiController@updateSensorValue');
 
-Route::get('sensors/{name}', 'SensorsApiController@getSensorValue');
+Route::get('sensors/{name}', 'Api\EquipmentsApiController@getSensorValue');

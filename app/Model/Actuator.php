@@ -4,14 +4,15 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sensor extends Model
+class Actuator extends Model
 {
-    protected $table = 'sensors';
+    protected $table = 'actuators';
 
-    protected $fillable = ['equipment_id', 'metric'];
+    protected $fillable = ['equipment_id'];
 
     public function equipment()
     {
         return $this->belongsTo('App\Model\Equipment', 'equipment_id');
     }
+
 }

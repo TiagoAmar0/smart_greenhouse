@@ -70,10 +70,13 @@
                                 <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/dashboard/equipments') }}">Equipamentos</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/dashboard/sensors') }}">Sensores</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/dashboard/sensors/actions') }}">Ações Adicionais</a>
+                                <a class="nav-link" href="{{ url('/dashboard/equipments/actions') }}">Ações Adicionais</a>
                             </li>
                         @endguest
                     </ul>

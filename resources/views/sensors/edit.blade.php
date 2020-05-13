@@ -21,19 +21,6 @@
         @csrf
         @method('PATCH')
         <div class="form-group">
-            <label for="name">Nome</label>
-            <input type="text" class="form-control" id="name" name="name" aria-describedby="sensor_name_help" value="{{ $sensor->name }}">
-            <small id="sensor_name_help" class="form-text text-muted">Nome do sensor a adicionar.</small>
-        </div>
-        <div class="form-group">
-            <label for="image">Imagem:</label>
-            <img id="image_preview" class="mb-1" src="{{ $sensor->image }}"
-                 alt="preview image" style="max-height: 150px; display:block">
-            <input type="file" class="form-control-file" id="image" name="image" accept="image/*" aria-describedby="sensor_image_help">
-            <input type="hidden" name="image_value" value="{{ $sensor->image }}">
-            <small id="sensor_image_help" class="form-text text-muted">Imagem representativa do sensor. (Deixar vazio para manter a imagem)</small>
-        </div>
-        <div class="form-group">
             <label for="metric">Unidade:</label>
             <input type="text" class="form-control" id="metric" name="metric" aria-describedby="sensor_metric_help" value="{{ $sensor->metric }}" required>
             <small id="sensor_metric_help" class="form-text text-muted">Unidade representativa dos dados do sensor.</small>

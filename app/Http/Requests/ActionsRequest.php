@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\RouteExist;
+
 use Illuminate\Foundation\Http\FormRequest;
 
-class SensorActionsRequest extends FormRequest
+class ActionsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +26,12 @@ class SensorActionsRequest extends FormRequest
     public function rules()
     {
         return [
-            'sensor_id' => 'required|exists:sensors:id',
+            'equipment_id' => 'required|exists:equipments,id',
             'text' => 'required|max:191',
             'value' => 'max:191',
-            'route' => 'required|max:191',
+            'route' => ['required', 'max:191', new RouteExist],
         ];
     }
-
     /**
      * Get the error messages
      *
@@ -39,8 +40,8 @@ class SensorActionsRequest extends FormRequest
     function messages()
     {
         return [
-            'sensor_id.required' => 'Tem de preencher o nome do sensor',
-            'sensor_id.exists' => 'Esse sensor não existe',
+            'equipment_id.required' => 'Tem de preencher o nome do sensor',
+            'equipment_id.exists' => 'Esse sensor não existe',
             'text.required' => 'Tem de preencher o texto da ação',
             'text.max' => 'O texto da ação apenas pode ter no máximo 191 caracteres',
             'value.max' => 'O valor da ação apenas pode ter no máximo 191 caracteres',
@@ -48,4 +49,5 @@ class SensorActionsRequest extends FormRequest
             'route.max' => 'A route da ação apenas pode ter no máximo 10 caracteres'
         ];
     }
+
 }

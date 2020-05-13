@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\SensorAction;
-use App\Model\Sensor;
 
-class SensorsActionsController extends Controller
+class ThingsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +13,7 @@ class SensorsActionsController extends Controller
      */
     public function index()
     {
-        $actions = SensorAction::all();
-        return view('sensors.actions.index', ['actions' => $actions]);
+        //
     }
 
     /**
@@ -26,8 +23,7 @@ class SensorsActionsController extends Controller
      */
     public function create()
     {
-        $sensors = Sensor::all();
-        return view('sensors.actions.create', ['sensors' => $sensors]);
+        //
     }
 
     /**
@@ -38,15 +34,19 @@ class SensorsActionsController extends Controller
      */
     public function store(Request $request)
     {
-        // Validates the form data according to SensorsRequest rules
-        $validatedData = $request->validated();
-
-        // Saves the record in the database
-        SensorAction::create($validatedData);
-
-        return redirect('/dashboard/sensors/actions')->with('success', 'A ação foi adicionada com sucesso!');
+        //
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.

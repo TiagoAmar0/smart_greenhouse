@@ -34,10 +34,10 @@
         @foreach($actions as $action)
             <tr>
                 <td>{{ $action->id }}</td>
-                <td>{{ $action->sensor_id }}</td>
+                <td>{{ $action->equipment->name }}</td>
                 <td>{{ $action->text }}</td>
                 <td>{{ $action->route }}</td>
-                <td>{{ $action->value }}</td>
+                <td>{{ $action->value ? $action->value : 'N/A' }}</td>
                 <td>
                     <a href="{{ route('actions.edit', $action->id) }}" class="btn btn-success btn-block">⠀Editar⠀</a>
                 </td>

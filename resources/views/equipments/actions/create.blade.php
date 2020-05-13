@@ -5,7 +5,7 @@
 @endsection
 
 @section('card-content')
-    <a href="{{ route('sensors.index') }}" class="btn btn-large btn-outline-dark mb-3">
+    <a href="{{ route('actions.index') }}" class="btn btn-large btn-outline-dark mb-3">
         « Voltar à listagem
     </a>
 
@@ -17,17 +17,17 @@
         @endforeach
     @endif
 
-    <form method="POST" action="{{ route('sensors.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('actions.store') }}">
         @csrf
         <div class="form-group">
-            <label for="sensor">Sensor:</label>
-            <select id="sensor" name="sensor" class="custom-select custom-select-sm" required>
-                <option disabled selected value>Escolha o sensor </option>
-                @foreach($sensors as $sensor)
-                    <option value="{{ $sensor->id }}">{{ $sensor->name }}</option>
+            <label for="equipment_id">Sensor:</label>
+            <select id="equipment_id" name="equipment_id" class="custom-select custom-select-sm" aria-describedby="equipment_id_help" required>
+                <option disabled selected value>Escolha o equipamento </option>
+                @foreach($equipments as $equipment)
+                    <option value="{{ $equipment->id }}">{{ $equipment->name }}</option>
                 @endforeach
             </select>
-            <small id="sensor_name_help" class="form-text text-muted">Nome do sensor a adicionar.</small>
+            <small id="equipment_id_help" class="form-text text-muted">Nome do equipamento no qual a ação recairá.</small>
         </div>
         <div class="form-group">
             <label for="text">Texto:</label>
@@ -37,10 +37,10 @@
         <div class="form-group">
             <label for="route">Route:</label>
             <input type="text" class="form-control" id="route" name="route" aria-describedby="action_route_help" required>
-            <small id="action_route_help" class="form-text text-muted">Route da api que executará a ação.</small>
+            <small id="action_route_help" class="form-text text-muted">Route da api que executará a ação (colocar '/' no início do caminho relativo).</small>
         </div>
         <div class="form-group">
-            <label for="value">Route:</label>
+            <label for="value">Valor:</label>
             <input type="text" class="form-control" id="value" name="value" aria-describedby="action_value_help">
             <small id="action_value_help" class="form-text text-muted">Valor a enviar para a route (opcional).</small>
         </div>

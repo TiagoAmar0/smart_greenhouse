@@ -1,10 +1,14 @@
 @extends('layouts.card-template')
 
 @section('card-title')
-    Sensores
+    Equipamentos
 @endsection
 
 @section('card-content')
+    <a href="{{ route('equipments.create') }}" class="btn btn-large btn-outline-dark mb-3">
+        Adicionar novo equipamento
+    </a>
+
     @if(session()->get('success'))
 
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -19,26 +23,26 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nome do Equipamento</th>
-                <th>Unidade</th>
+                <th>Nome</th>
+                <th>Tipo</th>
                 <th>Criado em</th>
                 <th>Atualizado em</th>
                 <th colspan="2">Ações</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($sensors as $sensor)
+            @foreach($equipments as $equipment)
                 <tr>
-                    <td>{{ $sensor->id }}</td>
-                    <td>{{ $sensor->equipment->name }}</td>
-                    <td>{{ $sensor->metric ? $sensor->metric : 'Por definir'}}</td>
-                    <td>{{ $sensor->created_at }}</td>
-                    <td>{{ $sensor->updated_at }}</td>
+                    <td>{{ $equipment->id }}</td>
+                    <td>{{ $equipment->name }}</td>
+                    <td>{{ $equipment->type == 1 ? "Sensor" : ($equipment->type == "2" ? "Atuador" : "Thing") }}</td>
+                    <td>{{ $equipment->created_at }}</td>
+                    <td>{{ $equipment->updated_at }}</td>
                     <td>
-                        <a href="{{ route('sensors.edit', $sensor->id) }}" class="btn btn-success btn-block">⠀Editar⠀</a>
+                        <a href="{{ route('equipments.edit', $equipment->id) }}" class="btn btn-success btn-block">⠀Editar⠀</a>
                     </td>
                     <td>
-                        <form action="{{ route('sensors.destroy', $sensor->id) }}" method="POST">
+                        <form action="{{ route('equipments.destroy', $equipment->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-block">Eliminar</button>
