@@ -107,7 +107,9 @@ class EquipmentsController extends Controller
             $path = $this->uploadImage($image, $request->name);
 
             // Delete the previous image
-            Storage::disk('public')->delete(str_replace('/uploads/', '', $request->image_value));
+            if($path != $request->image_value){
+                Storage::disk('public')->delete(str_replace('/uploads/', '', $request->image_value));
+            }
         }
 
         // Changes the data to later store only the image path and unset array element that contained the previous image url

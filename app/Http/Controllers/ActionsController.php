@@ -47,7 +47,7 @@ class ActionsController extends Controller
         // Validates the form data according to SensorsRequest rules
         $validatedData = $request->validated();
 
-        $equipament = Equipment::findOrFail($validatedData['equipment_id']);
+        Equipment::findOrFail($validatedData['equipment_id']);
 
         // Saves the record in the database
         Action::create($validatedData);

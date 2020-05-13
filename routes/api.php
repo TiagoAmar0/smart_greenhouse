@@ -21,3 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('sensors', 'Api\EquipmentsApiController@updateSensorValue');
 
 Route::get('sensors/{name}', 'Api\EquipmentsApiController@getSensorValue');
+
+Route::post('/things/changeFanStatus/{id}/{value}', 'Api\ThingsApiController@changeFanStatus');
+Route::post('/things/changeDoorStatus/{id}/{value}', 'Api\ThingsApiController@changeDoorStatus');
