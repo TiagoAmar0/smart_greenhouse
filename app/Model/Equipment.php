@@ -32,4 +32,16 @@ class Equipment extends Model
     public function states(){
         return $this->hasMany('App\Model\StateText', 'equipment_id');
     }
+
+    public function histories(){
+        return $this->hasMany('App\Model\History', 'equipment_id')->orderBy('created_at');
+    }
+
+//    public function getUpdatedAtAttribute($date) {
+//        //What format do you store in db?
+//        $storedformat = createFromFormat('Y-m-d H:i:s', $date);
+//        //What format would you like to show?
+//        $customformat = $storedformat->format('Y.m.d. H:i:s');
+//        return $customformat;
+//    }
 }

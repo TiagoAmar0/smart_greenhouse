@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Model\Equipment;
+use App\Model\History;
 use App\Model\StateText;
 use Illuminate\Http\Request;
 use App\Model\Sensor;
@@ -26,6 +27,10 @@ class EquipmentsApiController extends Controller
 
         $equipment->value = round(floatval($request->value), 2);
         $equipment->save();
+
+        $history = new History();
+        $history->value = $equipment->value;
+        $equipment->histories()->save($history);
 
         echo $request->value;
     }

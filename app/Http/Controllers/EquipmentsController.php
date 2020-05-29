@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EquipmentsRequest;
 use App\Model\Actuator;
 use App\Model\Equipment;
+use App\Model\History;
 use App\Model\Sensor;
+use App\Model\StateText;
 use App\Model\Thing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -186,6 +188,19 @@ class EquipmentsController extends Controller
                 Thing::where('equipment_id', $equipment_id)->first()->delete();
                 break;
         }
+    }
+
+    public function history($id){
+        $equipment = Equipment::with(['histories', 'sensor'])->whereId($id)->first();
+
+        if($equipment->type != 1){
+            $states = StateText::where('equipment_id', $id)->get()->keyBy('value');
+            foreach ($equipment->histories as $history){
+                $history->state = $states[$history->value]->text;
+            }
+        }
+
+        return view('equipments.histories.timeline', ['equipment' => $equipment]);
     }
 
 }
