@@ -21,6 +21,7 @@ Route::resource('/dashboard/equipments', 'EquipmentsController')->except(['show'
 
 Route::resource('/dashboard/equipments/actions', 'ActionsController')->except('show');
 Route::get('/dashboard/equipments/actions/{id}', function () { return abort(404); });
+Route::get('/dashboard/equipments/history/{id}', 'EquipmentsController@history');
 
 /** STATES */
 Route::resource('/dashboard/equipments/states', 'StatesTextController')->except('show');

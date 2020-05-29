@@ -6,7 +6,7 @@
         <img class="card-img" src="{{ $image }}" alt="{{ $name }}">
     </div>
     <div class="card-footer bg-dark text-white">
-        Atualizado em: {{ $updatedAt }}
+        Atualizado em: <span id="value_updated">{{ $updatedAt }}</span>
         <br>
             <br>
             <button class="btn-sm btn-light" data-toggle="collapse" href="#collapse-{{ $id }}" role="button" aria-expanded="false" aria-controls="collapse-{{ $id }}">Ver ações »</button>
@@ -30,7 +30,7 @@
                     @csrf
                @endforeach
             @endif
-            <button class="btn btn-outline-dark btn-block">Ver Histórico »</button>
+            <a href="{{ url('/dashboard/equipments/history/' . $id ) }}" class="btn btn-outline-dark btn-block">Ver Histórico »</a>
         </div>
     </div>
 </div>

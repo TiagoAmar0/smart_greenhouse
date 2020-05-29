@@ -4,7 +4,6 @@
 <div class="container-fluid">
 
     @if(session()->get('success'))
-
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session()->get('success') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -91,6 +90,7 @@
                 data.forEach(function(value){
                     var elem_id = "#equipment_" + value.id + "_info";
                     $(elem_id).find('#value_info').html(value.value)
+                    $(elem_id).find('#value_updated').html(value.updated_at)
                 });
             });
         }

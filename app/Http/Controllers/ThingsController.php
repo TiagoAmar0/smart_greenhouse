@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Equipment;
+use App\Model\History;
 use Illuminate\Http\Request;
 
 class ThingsController extends Controller
@@ -70,6 +71,10 @@ class ThingsController extends Controller
 
         $equipment->update(['value' => $output]);
 
+        $history = new History();
+        $history->value = $equipment->value;
+        $equipment->histories()->save($history);
+
         return redirect('/dashboard')->with('success', 'Estado da porta alterado com sucesso!');
     }
 
@@ -81,6 +86,11 @@ class ThingsController extends Controller
         }
 
         $fan->update(['value' => $value]);
+
+        $history = new History();
+        $history->value = $fan->value;
+        $fan->histories()->save($history);
+
         return redirect('/dashboard')->with('success', 'Estado da ventoinha alterado com sucesso!');
     }
 }
