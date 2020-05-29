@@ -18,7 +18,7 @@ class CreateActionsTable extends Migration
             $table->unsignedBigInteger('equipment_id');
             $table->string('text');
             $table->string('route');
-            $table->int('value')->nullable();
+            $table->integer('value')->nullable();
             $table->timestamps();
             $table->foreign('equipment_id')->references('id')->on('equipments');
         });
