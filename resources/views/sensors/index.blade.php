@@ -23,7 +23,7 @@
                 <th>Unidade</th>
                 <th>Criado em</th>
                 <th>Atualizado em</th>
-                <th colspan="2">Ações</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -36,13 +36,6 @@
                     <td>{{ $sensor->updated_at }}</td>
                     <td>
                         <a href="{{ route('sensors.edit', $sensor->id) }}" class="btn btn-success btn-block">⠀Editar⠀</a>
-                    </td>
-                    <td>
-                        <form action="{{ route('sensors.destroy', $sensor->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-block">Eliminar</button>
-                        </form>
                     </td>
                 </tr>
             @endforeach

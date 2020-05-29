@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateActionsTable extends Migration
+class CreateStateTextsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateActionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('actions', function (Blueprint $table) {
+        Schema::create('state_texts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('equipment_id');
+            $table->bigInteger('equipment_id')->unsigned();
+            $table->string('value');
             $table->string('text');
-            $table->string('route');
-            $table->int('value')->nullable();
             $table->timestamps();
+
             $table->foreign('equipment_id')->references('id')->on('equipments');
+
         });
     }
 
@@ -31,6 +32,6 @@ class CreateActionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('actions');
+        Schema::dropIfExists('state_texts');
     }
 }

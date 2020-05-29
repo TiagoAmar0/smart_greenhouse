@@ -187,4 +187,5 @@ class EquipmentsController extends Controller
                 break;
         }
     }
+
 }

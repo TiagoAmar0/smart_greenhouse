@@ -1,6 +1,6 @@
-<div class="card text-center" >
+<div class="card text-center" id="{{ "equipment_". $id ."_info" }}">
     <div class="card-header bg-dark text-white">
-        {{ $name }}: {{ $value }} {{ $metric }}
+        {{ $name }}: <span id="value_info">{{ $value }}</span> {{ $metric }}
     </div>
     <div class="card-body">
         <img class="card-img" src="{{ $image }}" alt="{{ $name }}">
@@ -16,12 +16,14 @@
         <div class="card card-body">
             @if(!$actions->isEmpty())
                @foreach($actions as $action)
-                    @if($action->value)
-                        <form action="{{ $action->route. '/' . $id . '/' . $action->value }}" method="POST">
+                    @if(isset($action->value))
+                        <form action="{{ '/'. $action->route. '/' . $id . '/' . $action->value }}" method="POST">
+                            @csrf
                             <button type="submit" class="btn btn-outline-dark btn-block mb-2">{{ $action->text }} »</button>
                         </form>
                     @else
                         <form action="{{ $action->route. '/' . $id  }}" method="POST">
+                            @csrf
                             <button type="submit" class="btn btn-outline-dark btn-block mb-2">{{ $action->text }} »</button>
                         </form>
                     @endif

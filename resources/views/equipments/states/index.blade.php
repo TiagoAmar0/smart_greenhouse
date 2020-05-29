@@ -1,16 +1,15 @@
 @extends('layouts.card-template')
 
 @section('card-title')
-    Ações dos equipamentos
+    Estados dos equipamentos
 @endsection
 
 @section('card-content')
-    <a href="{{ route('actions.create') }}" class="btn btn-large btn-outline-dark mb-3">
-        Adicionar nova ação
+    <a href="{{ route('states.create') }}" class="btn btn-large btn-outline-dark mb-3">
+        Adicionar novo estado
     </a>
 
     @if(session()->get('success'))
-
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session()->get('success') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -19,30 +18,33 @@
         </div>
     @endif
 
+
     <table class="table table-striped table-bordered text-center">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Sensor</th>
+            <th>Equipamento</th>
+            <th>Estado</th>
             <th>Texto</th>
-            <th>Route</th>
-            <th>Valor</th>
+            <th>Criado em</th>
+            <th>Atualizado em</th>
             <th colspan="2">Ações</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($actions as $action)
+        @foreach($states as $state)
             <tr>
-                <td>{{ $action->id }}</td>
-                <td>{{ $action->equipment->name }}</td>
-                <td>{{ $action->text }}</td>
-                <td>{{ $action->route }}</td>
-                <td>{{ $action->value || $action->value == 0? $action->value : 'N/A' }}</td>
+                <td>{{ $state->id }}</td>
+                <td>{{ $state->equipment->name }}</td>
+                <td>{{ $state->value  }}</td>
+                <td>{{ $state->text  }}</td>
+                <td>{{ $state->created_at }}</td>
+                <td>{{ $state->updated_at }}</td>
                 <td>
-                    <a href="{{ route('actions.edit', $action->id) }}" class="btn btn-success btn-block">⠀Editar⠀</a>
+                    <a href="{{ route('states.edit', $state->id) }}" class="btn btn-success btn-block">⠀Editar⠀</a>
                 </td>
                 <td>
-                    <form action="{{ route('actions.destroy', $action->id) }}" method="POST">
+                    <form action="{{ route('states.destroy', $state->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-block">Eliminar</button>

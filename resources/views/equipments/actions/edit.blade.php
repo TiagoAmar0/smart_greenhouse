@@ -42,7 +42,7 @@
         <div class="form-group">
             <label for="route">Route:</label>
             <input type="text" class="form-control" id="route" value="{{ $action->route }}" name="route" aria-describedby="action_route_help" required>
-            <small id="action_route_help" class="form-text text-muted">Route da api que executará a ação (colocar '/' no início do caminho relativo).</small>
+            <small id="action_route_help" class="form-text text-muted">Route da api que executará a ação (não colocar '/' no início do caminho relativo).</small>
         </div>
         <div class="form-group">
             <label for="value">Valor:</label>

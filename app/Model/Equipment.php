@@ -28,4 +28,8 @@ class Equipment extends Model
     public function actions(){
         return $this->hasMany('App\Model\Action', 'equipment_id');
     }
+
+    public function states(){
+        return $this->hasMany('App\Model\StateText', 'equipment_id');
+    }
 }

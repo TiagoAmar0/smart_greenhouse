@@ -50,14 +50,21 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position:relative; padding-left:50px; " v-pre>
+                                    <img src="{{Auth::user()->avatar}}" style="width: 32px; heigth:32px; position: absolute;top: 10px;left: 10px;border-radius: 50%;">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+
+                                    <a class="dropdown-item" href="{{ url('dashboard/profile') }}"
+                                    ><i class="fa fa-btn fa-user"></i>
+                                        {{ __('Perfil') }}
+                                    </a>
+
+
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <i class="fa fa-btn fa-sign-out"></i>
                                         {{ __('Terminar Sessão') }}
                                     </a>
 
@@ -69,15 +76,24 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/dashboard/equipments') }}">Equipamentos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/dashboard/sensors') }}">Sensores</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/dashboard/equipments/actions') }}">Ações Adicionais</a>
-                            </li>
+                            @if(Auth::check() && Auth::user()->role == 'admin')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/dashboard/equipments') }}">Equipamentos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/dashboard/sensors') }}">Sensores</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/dashboard/equipments/actions') }}">Ações Adicionais</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/dashboard/equipments/states') }}">Estados</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/dashboard/users') }}">Utilizadores</a>
+                                </li>
+                            @endif
                         @endguest
                     </ul>
                 </div>

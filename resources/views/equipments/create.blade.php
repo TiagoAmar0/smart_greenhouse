@@ -1,7 +1,7 @@
 @extends('layouts.card-template')
 
 @section('card-title')
-    Adicionar novo sensor
+    Adicionar novo equipamento
 @endsection
 
 @section('card-content')

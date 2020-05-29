@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Model\Equipment;
+use App\Model\StateText;
 use Illuminate\Http\Request;
 use App\Model\Sensor;
+use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class EquipmentsApiController extends Controller
 {
-    public function updateSensorValue(Request $request)
+    public function updateEquipmentValue(Request $request)
     {
         if (!isset($request->name) || !isset($request->value)) {
             http_response_code(400);
@@ -28,7 +30,7 @@ class EquipmentsApiController extends Controller
         echo $request->value;
     }
 
-    public function getSensorValue($name)
+    public function getEquipmentValue($name)
     {
         $name = $this->convertURLParameter($name);
         $equipment = Equipment::where('name', $name)->first();
@@ -42,5 +44,20 @@ class EquipmentsApiController extends Controller
 
     private function convertURLParameter($param){
         return str_replace('_', ' ', $param);
+    }
+
+    public function retrieveAllEquipmentsValues(){
+        $equipments_values = Equipment::all('id', 'value', 'type', 'updated_at');
+
+        foreach ($equipments_values as $equipment){
+            if($equipment->type != 1){
+                $state = StateText::where(['equipment_id' => $equipment->id, 'value' => $equipment->value])->first();
+                if($state){
+                    $equipment->value = $state->text;
+                }
+            }
+        }
+
+        return response()->json($equipments_values);
     }
 }

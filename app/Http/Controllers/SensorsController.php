@@ -53,21 +53,4 @@ class SensorsController extends Controller
 
         return redirect('/dashboard/sensors')->with('success', 'O sensor foi atualizado com sucesso!');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        // Find the sensor information according to the ID provided in DELETE request
-        $sensor = Sensor::findOrFail($id);
-
-        // Deletes the record from the database
-        $sensor->delete();
-
-        return redirect('/dashboard/sensors')->with('success', 'O sensor foi eliminado com sucesso!');
-    }
 }
