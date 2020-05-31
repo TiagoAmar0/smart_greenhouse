@@ -66,7 +66,7 @@
                     'id' => $thing->equipment->id,
                     'name' => $thing->equipment->name,
                     'image' => $thing->equipment->image,
-                    'value' => isset($thing->state->text)  ? $thing->state->text : 'Não Definido',
+                    'value' => $thing->equipment->name == "Webcam" ? $thing->equipment->value : (isset($thing->state->text)  ? $thing->state->text : 'Não Definido'),
                     'metric' => $thing->metric,
                     'updatedAt' => $thing->updated_at,
                     'actions' => $thing->equipment->actions])
@@ -84,13 +84,33 @@
             setInterval(updateValues, 2000);
          });
 
+        // Update informations requesting data from API
         function updateValues(){
             $.ajax({ url: '/api/equipments/values'})
             .done(function(data){
+                data = JSON.parse(data)
                 data.forEach(function(value){
                     var elem_id = "#equipment_" + value.id + "_info";
-                    $(elem_id).find('#value_info').html(value.value)
-                    $(elem_id).find('#value_updated').html(value.updated_at)
+
+                    if(value.name == 'Webcam'){
+                        if(value.value){
+                            $(elem_id).find('img').first().attr('src', value.value)
+                            $(elem_id).find('#value_updated').html(value.updated_at)
+                        }
+                    } else {
+
+
+                        // Change element value
+                        if(value.state){
+                            $(elem_id).find('#value_info').html(value.state)
+                        } else {
+                            $(elem_id).find('#value_info').html(value.value)
+                        }
+
+                        // Change Timestamp
+                        $(elem_id).find('#value_updated').html(value.updated_at)
+                    }
+
                 });
             });
         }

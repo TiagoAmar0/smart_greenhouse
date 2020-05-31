@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EquipmentsRequest;
 use App\Model\Actuator;
 use App\Model\Equipment;
-use App\Model\History;
 use App\Model\Sensor;
 use App\Model\StateText;
 use App\Model\Thing;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,6 +20,7 @@ class EquipmentsController extends Controller
      */
     public function index()
     {
+        // Get all equipments
         $equipments = Equipment::all();
 
         return view('equipments.index', ['equipments' => $equipments]);
@@ -67,7 +66,7 @@ class EquipmentsController extends Controller
         // Saves Record and subtable data
         $this->addEquipmentToSubTable($validatedData['type'], $equipment);
 
-        return redirect('/dashboard/equipments')->with('success', 'O sensor foi adicionado com sucesso!');
+        return redirect('/dashboard/equipments')->with('success', 'O equipamento foi adicionado com sucesso!');
     }
 
     /**
@@ -128,7 +127,7 @@ class EquipmentsController extends Controller
             $this->addEquipmentToSubTable($validatedData['type'], $equipment_new);
         }
 
-        return redirect('/dashboard/equipments')->with('success', 'O sensor foi atualizado com sucesso!');
+        return redirect('/dashboard/equipments')->with('success', 'O equipamento foi atualizado com sucesso!');
     }
 
     /**
@@ -139,7 +138,18 @@ class EquipmentsController extends Controller
      */
     public function destroy($id)
     {
+        // Get equipment and his related tables records
+        $equipment = Equipment::with(['sensor', 'actuator', 'thing'])->whereId($id)->first();
 
+        // Delete relations
+        $equipment->sensor()->delete();
+        $equipment->actuator()->delete();
+        $equipment->thing()->delete();
+
+        // Delete equipment
+        $equipment->delete();
+
+        return redirect('/dashboard/equipments')->with('success', 'O equipamento foi eliminado com sucesso!');
     }
 
     /**
@@ -159,6 +169,7 @@ class EquipmentsController extends Controller
         return $path;
     }
 
+    // Add entry to table related with equipment type
     private function addEquipmentToSubTable($type, $equipment){
         switch ($type){
             case '1':
@@ -196,7 +207,11 @@ class EquipmentsController extends Controller
         if($equipment->type != 1){
             $states = StateText::where('equipment_id', $id)->get()->keyBy('value');
             foreach ($equipment->histories as $history){
-                $history->state = $states[$history->value]->text;
+                if(isset($states[$history->value])){
+                    $history->state = $states[$history->value]->text;
+                } else {
+                    $history->state = $history->value;
+                }
             }
         }
 

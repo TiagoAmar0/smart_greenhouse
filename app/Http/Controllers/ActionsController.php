@@ -31,6 +31,7 @@ class ActionsController extends Controller
      */
     public function create()
     {
+        // Retrieve all equipments
         $equipments = Equipment::all();
 
         return view('equipments.actions.create', ['equipments' => $equipments]);
@@ -47,8 +48,6 @@ class ActionsController extends Controller
         // Validates the form data according to SensorsRequest rules
         $validatedData = $request->validated();
 
-        Equipment::findOrFail($validatedData['equipment_id']);
-
         // Saves the record in the database
         Action::create($validatedData);
 
@@ -64,7 +63,10 @@ class ActionsController extends Controller
      */
     public function edit($id)
     {
+        // Retrieve all equipments
         $equipments = Equipment::all();
+
+        // Retrieve action to edit data
         $action = Action::findOrFail($id);
 
         return view('equipments.actions.edit', ['equipments' => $equipments, 'action' => $action]);

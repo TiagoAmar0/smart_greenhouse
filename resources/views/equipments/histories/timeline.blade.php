@@ -68,22 +68,35 @@
 
                 <!-- Timeline -->
                 <ul class="timeline">
-                    @if($equipment->type == 1)
+                    @if($equipment->name == 'Webcam')
                         @foreach($equipment->histories as $history)
                             <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
                                 <div class="timeline-arrow"></div>
-                                <h2 class="h5 mb-0">Valor registado: {{ $history->value }} {{ $equipment->sensor->metric }}</h2>
+                                <h2 class="h5 mb-0">Imagem registada:</h2>
+                                <div class="container">
+                                    <img src="{{ $history->value }}" alt="Webcam history" style="max-width: 300px; height: auto"/>
+                                </div>
                                 <span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>{{ $history->created_at }}</span>
                             </li>
                         @endforeach
                     @else
-                        @foreach($equipment->histories as $history)
-                            <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
-                                <div class="timeline-arrow"></div>
-                                <h2 class="h5 mb-0">Estado do equipamento alterado para "{{ $history->state }}"</h2>
-                                <span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>{{ $history->created_at }}</span>
-                            </li>
-                        @endforeach
+                        @if($equipment->type == 1)
+                            @foreach($equipment->histories as $history)
+                                <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
+                                    <div class="timeline-arrow"></div>
+                                    <h2 class="h5 mb-0">Valor registado: {{ $history->value }} {{ $equipment->sensor->metric }}</h2>
+                                    <span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>{{ $history->created_at }}</span>
+                                </li>
+                            @endforeach
+                        @else
+                            @foreach($equipment->histories as $history)
+                                <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
+                                    <div class="timeline-arrow"></div>
+                                    <h2 class="h5 mb-0">Estado do equipamento alterado para "{{ $history->state }}"</h2>
+                                    <span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>{{ $history->created_at }}</span>
+                                </li>
+                            @endforeach
+                        @endif
                     @endif
                 </ul>
             </div>

@@ -1,9 +1,13 @@
 <div class="card text-center" id="{{ "equipment_". $id ."_info" }}">
     <div class="card-header bg-dark text-white">
-        {{ $name }}: <span id="value_info">{{ $value }}</span> {{ $metric }}
+        {{ $name }}@if($name !='Webcam'): <span id="value_info">{{ $value }}</span> {{ $metric }}@endif
     </div>
     <div class="card-body">
-        <img class="card-img" src="{{ $image }}" alt="{{ $name }}">
+        @if($name == 'Webcam')
+            <img class="card-img" src="{{ $value ? $value : $image }}" alt="{{ $name }}">
+        @else
+            <img class="card-img" src="{{ $image }}" alt="{{ $name }}">
+        @endif
     </div>
     <div class="card-footer bg-dark text-white">
         Atualizado em: <span id="value_updated">{{ $updatedAt }}</span>

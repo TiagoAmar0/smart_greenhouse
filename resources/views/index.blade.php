@@ -12,8 +12,10 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
-                color: #636b6f;
+                background-image: url('/uploads/bg.jpg');
+                background-repeat: no-repeat;
+                background-size: cover;
+                color: #444;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -44,6 +46,10 @@
 
             .content {
                 text-align: center;
+                background: #fff;
+                opacity: 0.8;
+                border: 2px solid #444;
+                padding: 30px;
             }
 
             .title {
@@ -51,7 +57,11 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: #444;
+                opacity: 0.9;
+                border: 1px solid #444;
+                background-color: #fff;
+                opacity: 0.8;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;

@@ -21,4 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('equipments', 'Api\EquipmentsApiController@updateEquipmentValue');
 Route::get('equipments/values', 'Api\EquipmentsApiController@retrieveAllEquipmentsValues');
 Route::get('equipments/{name}', 'Api\EquipmentsApiController@getEquipmentValue');
-
+Route::post("equipments/uploadWebcam",'Api\EquipmentsApiController@uploadWebcamPicture');
