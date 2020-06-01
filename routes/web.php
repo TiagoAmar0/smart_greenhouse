@@ -26,10 +26,6 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('/dashboard/equipments/actions', 'ActionsController')->except('show');
         Route::get('/dashboard/equipments/actions/{id}', function () { return abort(404); });
 
-        /** HISTORY */
-        Route::get('/dashboard/equipments/history/webcam', 'EquipmentsController@webcamHistory');
-        Route::get('/dashboard/equipments/history/{id}', 'EquipmentsController@history');
-
         /** STATES */
         Route::resource('/dashboard/equipments/states', 'StatesTextController')->except('show');
         Route::get('/dashboard/equipments/states/{id}', function () { return abort(404); });
@@ -50,7 +46,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::put('/dashboard/users/togglePermissions/{id}', 'UsersController@togglePermissions');
     });
 
-
+    /** HISTORY */
+    Route::get('/dashboard/equipments/history/webcam', 'EquipmentsController@webcamHistory');
+    Route::get('/dashboard/equipments/history/{id}', 'EquipmentsController@history');
 
     /** PROFILE */
     Route::get('/dashboard/profile', 'UsersController@profile');

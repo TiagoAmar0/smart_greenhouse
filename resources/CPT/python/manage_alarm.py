@@ -11,7 +11,7 @@ try:
     url = 'http://127.0.0.1:8000/api/equipments/'
     while True:
         print("********** A LER ESTADO DOS ASPERSORES DE INCÊNDIO **********")
-        r = requests.get(url + 'Aspersor%20de%20Incêncio');
+        r = requests.get(url + 'Aspersor%20de%20Incêncio')
         if(r.status_code == 200):
 
             # Test if there is a detected fire
@@ -20,7 +20,7 @@ try:
              # If alarm state changed, save new value
             if(state != int(r.text)):
                 state = int(r.text)
-                
+
                 data = { 'values': json.dumps([{ 'name': 'Alarme', 'value': state }]) }
 
                 # Update database
