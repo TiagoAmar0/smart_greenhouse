@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Model\Equipment;
-use Illuminate\Http\Request;
 use App\Model\StateText;
 use App\Http\Requests\StatesTextRequest;
-use Illuminate\Support\Facades\Auth;
-use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class StatesTextController extends Controller
 {
@@ -18,7 +15,9 @@ class StatesTextController extends Controller
      */
     public function index()
     {
+        // Gets all states with related equipment information
         $states = StateText::with('equipment')->get();
+
         return view('equipments.states.index', ['states' => $states]);
     }
 

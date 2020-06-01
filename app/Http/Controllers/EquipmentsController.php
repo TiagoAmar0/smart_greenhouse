@@ -187,6 +187,7 @@ class EquipmentsController extends Controller
         }
     }
 
+    // Delete relation from subtable
     private function deleteEquipmentFromSubTable($equipment_id, $type){
         switch ($type){
             case '1':
@@ -201,9 +202,12 @@ class EquipmentsController extends Controller
         }
     }
 
+    // History page for all equipments
     public function history($id){
+        // Get equipment with history entries and sensor (if exists)
         $equipment = Equipment::with(['histories', 'sensor'])->whereId($id)->first();
 
+        // If equipment is not a sensor, tries to retrieve values translations
         if($equipment->type != 1){
             $states = StateText::where('equipment_id', $id)->get()->keyBy('value');
             foreach ($equipment->histories as $history){

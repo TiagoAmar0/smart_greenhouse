@@ -20,7 +20,8 @@ class UsersController extends Controller
     public function index()
     {
         // Gets all sensors information
-        $users=User::all();
+        $users = User::all();
+
         return view('users.index', ['users' => $users]);
     }
 
@@ -29,12 +30,15 @@ class UsersController extends Controller
     }
 
     public function update_avatar(Request $request){
-        // configure with favored image driver (gd by default)
+
+        // Check if image was send
         if($request->hasFile('avatar')){
+            // Stores image
             $avatar = $request->file('avatar');
             $filename='/avatars/' . time() . '.' . $avatar->getClientOriginalExtension();
             Storage::disk('public')->put($filename, File::get($avatar));
 
+            // Update user information
             $user = Auth::user();
             $user->avatar = '/uploads'. $filename;
             $user->save();
@@ -44,15 +48,14 @@ class UsersController extends Controller
 
     public function togglePermissions($id)
     {
-        //Chama a variavel user que fica com registo da base de dados
+        // Gets all users from database
         $user = User::findOrFail($id);
 
-        //se o campo role for igual a admin, muda para user, se nao for muda para admin
+        // Toggles permissions based in old permission
         if($user->role == 'admin'){
             $user->update(array('role'=>'user'));
         }else{
             $user->update(array('role'=>'admin'));
-
         }
 
         return redirect('/dashboard/users')->with('success', 'Informação do Utilizador alterada com sucesso!');

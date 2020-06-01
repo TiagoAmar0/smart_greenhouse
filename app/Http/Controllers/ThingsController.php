@@ -11,11 +11,14 @@ class ThingsController extends Controller
 
     // receives the Door id and assigns a new value to open/close and lock/unlock
     public function changeDoorStatus($id, $value){
+        // Get the door equipment
         $equipment = Equipment::findOrFail($id);
 
+        // Old status of lock and door
         $open_status_old = explode(",", $equipment->value)[0];
         $lock_status_old = explode(",", $equipment->value)[1];
 
+        // New status of lock and door
         $open_status_new = explode(",", $value)[0];
         $lock_status_new = explode(",", $value)[1];
 
@@ -58,19 +61,23 @@ class ThingsController extends Controller
         }
 
 
+        // If new status is -1, just maintain the old status
         if($open_status_new == -1){
             $open_status_new = $open_status_old;
         }
 
+        // If new status is -1, just maintain the old status
         if($lock_status_new == -1){
             $lock_status_new = $lock_status_old;
         }
 
-
+        // Create output string
         $output = $open_status_new . ',' . $lock_status_new;
 
+        // Update values
         $equipment->update(['value' => $output]);
 
+        // Add new entry to history
         $history = new History();
         $history->value = $equipment->value;
         $equipment->histories()->save($history);
@@ -80,13 +87,18 @@ class ThingsController extends Controller
 
 
     public function changeFanStatus($id, $value){
+        // Get equipment related to fan
         $fan = Equipment::findOrFail($id);
+
+        // Just return if data is the same as in database
         if($fan->value == $value){
             return redirect('/dashboard')->with('warning', 'A ventoinha já está '. ($value == 0 ? 'desligada' : ($value == 1 ? 'em baixa velocidade' : 'em alta velocidade')) .'!');
         }
 
+        // Update values
         $fan->update(['value' => $value]);
 
+        // Add new entry to history
         $history = new History();
         $history->value = $fan->value;
         $fan->histories()->save($history);
